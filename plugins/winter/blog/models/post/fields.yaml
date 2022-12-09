@@ -1,0 +1,357 @@
+# ===================================
+#  Field Definitions
+# ===================================
+
+fields:
+
+    title:
+        label: winter.blog::lang.post.title
+        span: left
+        placeholder: winter.blog::lang.post.title_placeholder
+
+    slug:
+        label: winter.blog::lang.post.slug
+        span: right
+        placeholder: winter.blog::lang.post.slug_placeholder
+        preset:
+            field: title
+            type: slug
+
+    toolbar:
+        type: partial
+        path: post_toolbar
+        cssClass: collapse-visible
+
+secondaryTabs:
+    stretch: true
+    fields:
+
+        categories:
+            tab: winter.blog::lang.post.tab_categories
+            type: relation
+            commentAbove: winter.blog::lang.post.categories_comment
+            placeholder: winter.blog::lang.post.categories_placeholder
+
+        published:
+            tab: winter.blog::lang.post.tab_manage
+            label: winter.blog::lang.post.published
+            span: left
+            type: checkbox
+
+        user:
+            tab: winter.blog::lang.post.tab_manage
+            label: winter.blog::lang.post.published_by
+            span: right
+            type: relation
+            nameFrom: login
+            emptyOption: winter.blog::lang.post.current_user
+
+        published_at:
+            tab: winter.blog::lang.post.tab_manage
+            label: winter.blog::lang.post.published_on
+            span: left
+            cssClass: checkbox-align
+            type: datepicker
+            mode: datetime
+            trigger:
+                action: enable
+                field: published
+                condition: checked
+
+        excerpt:
+            tab: winter.blog::lang.post.tab_manage
+            label: winter.blog::lang.post.excerpt
+            type: textarea
+            size: small
+
+        # field banner image
+
+        banner_images:
+            tab: Banner Image
+            label: Banner Images
+            type: fileupload
+            mode: image
+            imageWidth: 200
+            imageHeight: 200
+
+        banner_option:
+            tab: Banner Image
+            label: Optional Button
+            type: dropdown
+            span: left
+            default: ' '
+            options:
+                ' ': ' '
+                whatsapp: Whatsapp
+                enquiry: Enquiry
+
+        banner_caption:
+            tab: Banner Image
+            label: Caption
+            type: richeditor
+            size: large
+            span: full
+
+        # field tour package
+
+        tp_images:
+            tab: Tour Package
+            label: Tour Package Images
+            type: fileupload
+            mode: image
+            span: left
+            imageWidth: 200
+            imageHeight: 200
+
+        tp_book:
+            tab: Tour Package
+            label: Book Type
+            span: right
+            type: checkboxlist
+            options:
+                whatsapp: Whatsapp
+                enquiry: Enquiry
+
+        tp_price:
+            tab: Tour Package
+            label:  Main Price
+            type: text
+            span: left
+
+        tp_price_adult:
+            tab: Tour Package
+            label:  List Price for Adult
+            type: repeater
+            span: left
+            form:
+                fields:
+                    person:
+                        label: Person
+                        type: text
+                    price:
+                        label: Price
+                        type: text
+
+        tp_price_child:
+            tab: Tour Package
+            label: List Price for Children
+            type: repeater
+            span: right
+            form:
+                fields:
+                    person:
+                        label: Person
+                        type: text
+                    price:
+                        label: Price
+                        type: text
+
+        tp_destination:
+            tab: Tour Package
+            label: Destination
+            type: repeater
+            span: left
+            form: 
+                fields:
+                    destination_name:
+                        label: Destination Name
+                        type: text
+
+        tp_inclusion:
+            tab: Tour Package
+            label: Inclusion
+            type: repeater
+            span: right
+            form: 
+                fields:
+                    item:
+                        label: Item
+                        type: text
+
+        tp_itenary:
+            tab: Tour Package
+            label: Itenary
+            type: richeditor
+            size: large
+            span: left
+
+        tp_termscondition:
+            tab: Tour Package
+            label: Terms & Condition
+            type: richeditor
+            size: large
+            span: right
+
+        
+        # field rent car
+
+        rc_category:
+            tab: Rent Car
+            label: Category Rent
+            type: checkboxlist
+            span: full
+            options:
+                Car Only: Car Only
+                With Driver: With Driver
+
+        'rc_detail[price]':
+            tab: Rent Car
+            label: Main Price
+            type: text
+            span: auto
+
+        'rc_detail[duration]':
+            tab: Rent Car
+            label: Duration
+            type: text
+            span: auto
+
+        'rc_detail[transmission]':
+            tab: Rent Car
+            label: Transmission
+            type: dropdown
+            span: auto
+            options:
+                Automatic: Automatic
+                Manual: Manual
+
+        'rc_detail[capacity]':
+            tab: Rent Car
+            label: Capacity
+            type: text
+            span: auto
+
+        'rc_detail[year]':
+            tab: Rent Car
+            label: Car Year
+            type: text
+            span: auto
+
+        rc_price_co:
+            tab: Rent Car
+            label: Price Car Only
+            type: repeater
+            span: left
+            form:
+                fields:
+                    description:
+                        label: Description
+                        type: text
+                    price:
+                        label: Price
+                        type: text
+                    time:
+                        label: Time
+                        type: dropdown
+                        options:
+                            Fullday (24 Hour): Fullday (24 Hour)
+                            Halfday (12 Hour): Halfday (12 Hour)
+
+        rc_price_wd:
+            tab: Rent Car
+            label: Price With Driver
+            type: repeater
+            span: right
+            form:
+                fields:
+                    description:
+                        label: Description
+                        type: text
+                    price:
+                        label: Price
+                        type: text
+                    time:
+                        label: Time
+                        type: dropdown
+                        options:
+                            Fullday (24 Hour): Fullday (24 Hour)
+                            Halfday (12 Hour): Halfday (12 Hour)
+
+        'rc_detail[description]':
+            tab: Rent Car
+            label: Description
+            type: richeditor
+            size: large
+
+        rc_images:
+            tab: Rent Car
+            label: Car Images
+            type: fileupload
+            mode: image
+            imageWidth: 200
+            imageHeight: 200
+
+
+        # field testimonial
+
+        tes_name:
+            tab: Testimonial
+            label: Name
+            type: text
+            span: left
+
+        tes_country:
+            tab: Testimonial
+            label: Country
+            type: text
+            span: right
+
+        tes_message:
+            tab: Testimonial
+            label: Message
+            type: textarea
+            size: small
+
+        tes_images:
+            tab: Testimonial
+            label: Testimonial Images
+            type: fileupload
+            mode: image
+            imageWidth: 200
+            imageHeight: 200
+
+        # field team
+
+        team_name:
+            tab: Team
+            label: Name
+            type: text
+            span: left
+
+        team_position:
+            tab: Team
+            label: Position
+            type: text
+            span: right
+
+        'team_cp[phone]':
+            tab: Team
+            label: Phone Number
+            type: text
+            span: left
+
+        'team_cp[mail]':
+            tab: Team
+            label: Email
+            type: text
+            span: right
+
+        'team_cp[ig]':
+            tab: Team
+            label: Instagram
+            type: text
+            span: left
+
+        'team_cp[fb]':
+            tab: Team
+            label: Facebook
+            type: text
+            span: right
+
+        team_images:
+            tab: Team
+            label: Photos
+            type: fileupload
+            mode: image
+            imageWidth: 200
+            imageHeight: 200

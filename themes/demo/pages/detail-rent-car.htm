@@ -1,0 +1,159 @@
+title = "Rent Car"
+url = "/detail-rent-car/:slug?"
+layout = "default"
+is_hidden = 0
+==
+<?php
+	use Winter\Blog\Models\Post;
+	use Winter\Blog\Models\Category;
+
+	function onStart()
+	{
+		$slug = $this->param('slug');
+		$this['posts'] = Post::where('published', 1)->get();
+		$this['rc'] = Post::where('slug', $slug)->first();	
+	}
+?>
+==
+
+<!-- ======= Hero Section ======= -->
+<section id="hero-tour" class="d-flex flex-column justify-content-end align-items-center">
+	<div id="heroCarousel" data-bs-interval="5000" class="container-fluid carousel carousel-fade" data-bs-ride="carousel">
+
+		<!-- Slide 1 -->
+		<div class="carousel-item active" data-bs-interval="10000" style="background-image: url('https://images.unsplash.com/photo-1610768207795-72169abdf0d4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1469&q=80');">
+			<div class="carousel-container">
+				<h2 class="animate__animated animate__fadeInDown"> {{rc.title}} </h2>
+				<!-- <p class="animate__animated fanimate__adeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p> -->
+			</div>
+		</div>
+
+	</div>
+
+	<svg class="hero-waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28 " preserveAspectRatio="none">
+		<defs>
+			<path id="wave-path" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"></path>
+		</defs>
+		<g class="wave1">
+			<use xlink:href="#wave-path" x="50" y="3" fill="rgba(255,255,255, .1)"></use>
+		</g>
+		<g class="wave2">
+			<use xlink:href="#wave-path" x="50" y="0" fill="rgba(255,255,255, .2)"></use>
+		</g>
+		<g class="wave3">
+			<use xlink:href="#wave-path" x="50" y="9" fill="#fff"></use>
+		</g>
+	</svg>
+
+</section><!-- End Hero -->
+
+<main id="main">
+
+	<!-- ======= Portfolio Details Section ======= -->
+	<section id="portfolio-details" class="portfolio-details">
+		<div class="container">
+
+			<div class="row gy-4 justify-content-center">
+
+				<div class="col-lg-8">
+					<div class="portfolio-details-slider swiper">
+						<div class="swiper-wrapper align-items-center">
+							{% for img in rc.rc_images %}
+							<div class="swiper-slide">
+								<img src="{{ img.path }}" alt="">
+							</div>
+							{% endfor %}
+						</div>
+						<div class="swiper-pagination"></div>
+					</div>
+				</div>
+
+				<div class="col-lg-8">
+					<div class="portfolio-info">
+						
+						<div class="row align-items-center">
+							<div class="col-lg-9 col-md-8 col-sm-12 ">
+								<h3 class="fs-3 pb-sm-3 pb-lg-0 pb-md-0">{{ rc.title }}</h3>
+							</div>
+							<div class="col-lg-3 col-md-4 col-sm-12">
+								<a href="{{url('/book-rent-car')}}/{{ rc.title }}" class="book d-flex justify-content-center fs-6">Book Now</a>
+							</div>
+						</div>
+
+						<ul class="nav nav-pills" id="myTab" role="tablist">
+							<li class="nav-item" role="presentation">
+								<button class="nav-link active" id="description-tab" data-bs-toggle="tab" data-bs-target="#description-tab-pane" type="button" role="tab" aria-controls="description-tab-pane" aria-selected="true">Description</button>
+							</li>
+							<li class="nav-item" role="presentation">
+								<button class="nav-link" id="price-tab" data-bs-toggle="tab" data-bs-target="#price-tab-pane" type="button" role="tab" aria-controls="price-tab-pane" aria-selected="false">Price</button>
+							</li>
+						</ul>
+
+						<div class="tab-content" id="myTabContent">
+							<div class="tab-pane fade show active" id="description-tab-pane" role="tabpanel" aria-labelledby="description-tab" tabindex="0">
+								<div class="pt-3">
+									{{ rc.rc_detail.description|raw }}
+									<p>Keterangan:</p>
+									<ul>
+										<li>Capacity {{ rc.rc_detail.capacity }}</li>
+										<li>Vehicle year up {{ rc.rc_detail.capacity }}</li>
+										<li>{{ rc.rc_detail.transmission }} transmission</li>
+									</ul>
+								</div>
+							</div>
+
+							<div class="tab-pane fade" id="price-tab-pane" role="tabpanel" aria-labelledby="price-tab" tabindex="0">
+								<div class="pt-3">
+									<p class="fw-bold">Price : </p>
+									<div class="row">
+										<div class="col-12">
+											<table class="table table-bordered table-hover">
+												<thead>
+													<tr>
+														<th scope="col">Category</th>
+														<th scope="col">Price</th>
+														<th scope="col">Time</th>
+													</tr>
+												</thead>
+												<tbody>
+													{% if rc.rc_price_co != '' %}
+													{% for price in rc.rc_price_co %}
+													<tr>
+														<td>Car Only</td>
+														<td>{{ price.price }}</td>
+														<td>{{ price.time }}</td>
+													</tr>
+													{% endfor %}
+													{% endif %}
+
+													{% if rc.rc_price_wd != '' %}
+													{% for price in rc.rc_price_wd %}
+													<tr>
+														<td>Car + Driver + Fuel</td>
+														<td>{{ price.price }}</td>
+														<td>{{ price.time }}</td>
+													</tr>
+													{% endfor %}
+													{% endif %}
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+            <!-- <div class="portfolio-description">
+              <h2>This is an example of portfolio detail</h2>
+              <p>
+                Autem ipsum nam porro corporis rerum. Quis eos dolorem eos itaque inventore commodi labore quia quia. Exercitationem repudiandae officiis neque suscipit non officia eaque itaque enim. Voluptatem officia accusantium nesciunt est omnis tempora consectetur dignissimos. Sequi nulla at esse enim cum deserunt eius.
+              </p>
+          </div> -->
+      </div>
+
+  </div>
+
+</div>
+</section><!-- End Portfolio Details Section -->
+
+  </main><!-- End #main -->

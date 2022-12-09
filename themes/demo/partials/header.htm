@@ -1,0 +1,39 @@
+<!-- ======= Header ======= -->
+<header id="header" class="fixed-top d-flex align-items-center  header-transparent ">
+  <div class="container d-flex align-items-center justify-content-between">
+
+    <div class="logo">
+      <!-- <h1><a href="index.html">TOUR</a></h1> -->
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <a href="{{ url('/') }}"><img src="{{ 'assets/img/logo-4.png'|theme }}" alt="" class="img-fluid"></a>
+    </div>
+
+    <nav id="navbar" class="navbar">
+      <ul>
+        <li><a class="nav-link scrollto {{ this.page.title == 'Home' ? 'active' : '' }}" href="{{ url('/') }}">Home</a></li>
+        <li><a class="nav-link scrollto {{ this.page.title == 'About' ? 'active' : '' }}" href="{{ url('/about') }}">About</a></li>
+        <li><a class="nav-link scrollto {{ this.page.title == 'Tour Package' ? 'active' : '' }}" href="{{ url('/tour-package') }}">Tour Package</a></li>
+        <li><a class="nav-link scrollto {{ this.page.title == 'Rent Car' ? 'active' : '' }}" href="{{ url('/rent-car') }}">Rent Car</a></li>
+        <!-- <li class="dropdown"><a href="#"><span>Tour Package</span> <i class="bi bi-chevron-down"></i></a>
+          <ul>
+            <li><a href="tour.html">1 Day Tour</a></li>
+            <li><a href="tour.html">2 Day Tour</a></li>
+            <li><a href="tour.html">3 Day Tour</a></li>
+            <li><a href="tour.html">4 Day Tour</a></li>
+          </ul>
+        </li> -->
+        <!-- <li><a class="nav-link scrollto" href="rentcar.html">Rent Car</a></li> -->
+        <!-- <li class="dropdown"><a href="#"><span>Rent Car</span> <i class="bi bi-chevron-down"></i></a>
+          <ul>
+            <li><a class="nav-link scrollto {{ this.page.title == 'Rent Car - With Driver' ? 'active' : '' }}" href="{{ url('/rentcar/with-driver') }}">With Driver</a></li>
+            <li><a class="nav-link scrollto {{ this.page.title == 'Rent Car - Car Only' ? 'active' : '' }}" href="{{ url('/rentcar/car-only') }}">Car Only</a></li>
+          </ul>
+        </li> -->
+        <li><a class="nav-link scrollto {{ this.page.title == 'Contact Us' ? 'active' : '' }}" href="{{ url('/contact-us') }}">Contact Us</a></li>
+        <li><a class="nav-link scrollto active-book" href="{{url('/book-tour-package')}}">BOOK NOW</a></li>
+      </ul>
+      <i class="bi bi-list mobile-nav-toggle"></i>
+    </nav><!-- .navbar -->
+
+  </div>
+  </header><!-- End Header -->

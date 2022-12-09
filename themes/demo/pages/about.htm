@@ -1,0 +1,110 @@
+title = "About"
+url = "/about"
+layout = "default"
+is_hidden = 0
+==
+<?php
+	use Winter\Blog\Models\Post;
+	use Winter\Blog\Models\Category;
+
+	function onStart()
+	{
+		$this['posts'] = Post::where('published', 1)->get();
+		$this['about'] = Category::where('slug', 'about')->first();
+		$this['team'] = Category::where('slug', 'team')->first();	
+	}
+?>
+==
+
+<!-- ======= Hero Section ======= -->
+<section id="hero" class="d-flex flex-column justify-content-end align-items-center">
+	<div id="heroCarousel" data-bs-interval="5000" class="container-fluid carousel carousel-fade" data-bs-ride="carousel">
+
+		<!-- Slide 1 -->
+		<div class="carousel-item active" data-bs-interval="10000" style="background-image: url('{{ about.featured_images[0].path }}');">
+			<div class="carousel-container">
+				<h2 class="animate__animated animate__fadeInDown">About</h2>
+				<!-- <p class="animate__animated fanimate__adeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p> -->
+				<!-- <a href="#about" class="btn-get-started animate__animated animate__fadeInUp scrollto">Book Now</a> -->
+			</div>
+		</div>
+
+	</div>
+
+	<svg class="hero-waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28 " preserveAspectRatio="none">
+		<defs>
+			<path id="wave-path" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"></path>
+		</defs>
+		<g class="wave1">
+			<use xlink:href="#wave-path" x="50" y="3" fill="rgba(255,255,255, .1)"></use>
+		</g>
+		<g class="wave2">
+			<use xlink:href="#wave-path" x="50" y="0" fill="rgba(255,255,255, .2)"></use>
+		</g>
+		<g class="wave3">
+			<use xlink:href="#wave-path" x="50" y="9" fill="#fff"></use>
+		</g>
+	</svg>
+
+</section><!-- End Hero -->
+
+<main id="main">
+
+	<!-- ======= About Section ======= -->
+	<section id="about" class="about">
+		<div class="container">
+
+			<div class="section-title" data-aos="zoom-out">
+				<h2>STORY</h2>
+				<p>{{ about.title }}</p>
+			</div>
+
+			<div class="row content justify-content-center" data-aos="fade-up">
+				<div class="col-lg-12 position-relative"  style="text-align: justify;">
+					{{ about.description|raw }}
+				</div>
+			</div>
+
+		</div>
+	</section><!-- End About Section -->
+
+	{% partial 'banner-book-section' %}
+
+	<!-- ======= Team Section ======= -->
+	<section id="team" class="team">
+		<div class="container">
+
+			<div class="section-title" data-aos="zoom-out">
+				<h2>TEAM</h2>
+				<p>Our Driver and Tour Guide</p>
+			</div>
+
+			<div class="row">
+				{% for team in team.posts %}
+				<div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+					<div class="member" data-aos="fade-up">
+						<div class="member-img">
+							<img src="{{ team.team_images[0].path }}" class="img-fluid" alt="">
+							<div class="social">
+								<a target="_blank" href="https://wa.me/{{ team.team_cp.phone }}"><i class="bi bi-phone"></i></a>
+								<a target="_blank" href="mailto:{{ team.team_cp.mail }}"><i class="bi bi-envelope"></i></a>
+								<a target="_blank" href="{{ team.team_cp.ig }}"><i class="bi bi-instagram"></i></a>
+								<a target="_blank" href="{{ team.team_cp.fb }}"><i class="bi bi-facebook"></i></a>
+							</div>
+						</div>
+						<div class="member-info">
+							<h4>{{ team.team_name }}</h4>
+							<span>{{ team.team_position }}</span>
+						</div>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+
+		</div>
+	</section>
+	<!-- End Team Section -->
+
+	{% partial 'contact-section' %}
+
+  </main><!-- End #main -->

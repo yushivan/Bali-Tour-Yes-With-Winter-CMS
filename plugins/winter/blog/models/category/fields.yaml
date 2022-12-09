@@ -1,0 +1,36 @@
+# ===================================
+#  Field Definitions
+# ===================================
+
+fields:
+
+    name:
+        label: winter.blog::lang.category.name
+        placeholder: winter.blog::lang.category.name_placeholder
+        span: left
+
+    slug:
+        label: winter.blog::lang.category.slug
+        span: right
+        placeholder: winter.blog::lang.category.slug_placeholder
+        preset: name
+
+    title:
+        tab: winter.blog::lang.category.slug
+        label: Title
+        type: text
+        span: full
+
+    description:
+        label: 'winter.blog::lang.category.description'
+        size: large
+        span: full
+        type: richeditor
+
+    featured_images:
+        tab: winter.blog::lang.category.slug
+        label: Featured Images
+        type: fileupload
+        mode: image
+        imageWidth: 200
+        imageHeight: 200

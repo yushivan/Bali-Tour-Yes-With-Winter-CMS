@@ -1,0 +1,205 @@
+title = "Detail Tour Package"
+url = "/detail-tour-package/:slug?"
+layout = "default"
+is_hidden = 0
+==
+<?php
+	use Winter\Blog\Models\Post;
+	use Winter\Blog\Models\Category;
+
+	function onStart()
+	{
+		$slug = $this->param('slug');
+		$this['posts'] = Post::where('published', 1)->get();		
+		$this['tp'] = Post::where('slug', $slug)->first();
+
+	}
+?>
+==
+
+<!-- ======= Hero Section ======= -->
+<section id="hero-tour" class="d-flex flex-column justify-content-end align-items-center">
+	<div id="heroCarousel" data-bs-interval="5000" class="container-fluid carousel carousel-fade" data-bs-ride="carousel">
+
+		<!-- Slide 1 -->
+		<div class="carousel-item active" data-bs-interval="10000" style="background-image: url('https://images.unsplash.com/photo-1574079899277-78c0454deba7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80');">
+			<div class="carousel-container">
+				<h2 class="animate__animated animate__fadeInDown">Detail Tour Packages</h2>
+				<!-- <p class="animate__animated fanimate__adeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p> -->
+			</div>
+		</div>
+
+	</div>
+
+	<svg class="hero-waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28 " preserveAspectRatio="none">
+		<defs>
+			<path id="wave-path" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"></path>
+		</defs>
+		<g class="wave1">
+			<use xlink:href="#wave-path" x="50" y="3" fill="rgba(255,255,255, .1)"></use>
+		</g>
+		<g class="wave2">
+			<use xlink:href="#wave-path" x="50" y="0" fill="rgba(255,255,255, .2)"></use>
+		</g>
+		<g class="wave3">
+			<use xlink:href="#wave-path" x="50" y="9" fill="#fff"></use>
+		</g>
+	</svg>
+
+</section><!-- End Hero -->
+
+<main id="main">
+
+	<!-- ======= Breadcrumbs ======= -->
+	<!-- <section id="breadcrumbs" class="breadcrumbs">
+		<div class="container">
+			<div class="d-flex justify-content-between align-items-center">
+				<h2>Detail Tour Package</h2>
+			</div>
+		</div>
+	</section> -->
+	<!-- End Breadcrumbs -->
+
+	<section id="portfolio-details" class="portfolio-details">
+		<div class="container">
+
+			<div class="row gy-4 justify-content-center">
+
+				<div class="col-lg-8">
+					<div class="portfolio-details-slider swiper">
+						<div class="swiper-wrapper align-items-center">
+							{% for img in tp.tp_images %}
+							<div class="swiper-slide">
+								<img src="{{ img.path }}" alt="">
+							</div>
+							{% endfor %}
+						</div>
+						<div class="swiper-pagination"></div>
+					</div>
+				</div>
+
+				<div class="col-lg-8">
+					<div class="portfolio-info">
+
+						<div class="row align-items-center">
+							<div class="col-lg-9 col-md-8 col-sm-12 ">
+								<h3 class="fs-3 pb-sm-3 pb-lg-0 pb-md-0">{{ tp.title }}</h3>
+							</div>
+							<div class="col-lg-3 col-md-4 col-sm-12">
+								<a href="{{url('/book-tour-package')}}/{{ tp.title }}" class="book d-flex justify-content-center fs-6">Book Now</a>
+							</div>
+						</div>
+
+						<div class="col-12 mt-4"> 
+							<hr> 
+						</div>
+						<ul class="nav nav-pills justify-content-around" id="myTab" role="tablist">
+							<li class="nav-item" role="presentation">
+								<button class="nav-link active" id="destination-tab" data-bs-toggle="tab" data-bs-target="#destination-tab-pane" type="button" role="tab" aria-controls="destination-tab-pane" aria-selected="true">Destination</button>
+							</li>
+							<li class="nav-item" role="presentation">
+								<button class="nav-link" id="price-tab" data-bs-toggle="tab" data-bs-target="#price-tab-pane" type="button" role="tab" aria-controls="price-tab-pane" aria-selected="false">Price</button>
+							</li>
+							<li class="nav-item" role="presentation">
+								<button class="nav-link" id="facility-tab" data-bs-toggle="tab" data-bs-target="#facility-tab-pane" type="button" role="tab" aria-controls="facility-tab-pane" aria-selected="false">Facility</button>
+							</li>
+							<li class="nav-item" role="presentation">
+								<button class="nav-link" id="itenary-tab" data-bs-toggle="tab" data-bs-target="#itenary-tab-pane" type="button" role="tab" aria-controls="itenary-tab-pane" aria-selected="false">Itenary</button>
+							</li>
+						</ul>
+
+						<div class="col-12 my-2"> 
+							<hr> 
+						</div>
+
+						<div class="tab-content" id="myTabContent">
+							<div class="tab-pane fade show active" id="destination-tab-pane" role="tabpanel" aria-labelledby="destination-tab" tabindex="0">
+								<div class="pt-3">
+									<p class="fw-bold">Destination in {{ tp.title }} : </p>
+									<ul>
+										{% for destination in tp.tp_destination %}
+										<li>{{ destination.destination_name }}</li>
+										{% endfor %}
+									</ul>
+								</div>
+							</div>
+
+							<div class="tab-pane fade" id="price-tab-pane" role="tabpanel" aria-labelledby="price-tab" tabindex="0">
+								<div class="pt-3">
+									<p class="fw-bold">{{ tp.title }} Package Price Per Pax</p>
+									<div class="row">
+										<div class="col-lg-6 col-md-6 col-sm-12">
+											<table class="table table-bordered table-hover">
+												<thead>
+													<tr>
+														<th scope="col">Adult</th>
+														<th scope="col">Price</th>
+													</tr>
+												</thead>
+												<tbody>
+													{% for price_adult in tp.tp_price_adult %}
+													<tr>
+														<td>{{ price_adult.person }}</td>
+														<td>{{ price_adult.price }}</td>
+													</tr>
+													{% endfor %}
+												</tbody>
+											</table>
+										</div>
+										<div class="col-lg-6 col-md-6 col-sm-12">
+											<table class="table table-bordered table-hover">
+												<thead>
+													<tr>
+														<th scope="col">Children (3-12 year)</th>
+														<th scope="col">Price</th>
+													</tr>
+												</thead>
+												<tbody>
+													{% for price_child in tp.tp_price_child %}
+													<tr>
+														<td>{{ price_child.person }}</td>
+														<td>{{ price_child.price }}</td>
+													</tr>
+													{% endfor %}
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="tab-pane fade" id="facility-tab-pane" role="tabpanel" aria-labelledby="facility-tab" tabindex="0">
+								<div class="pt-3">
+									<p class="fw-bold">Include :</p>
+									<ul>
+										{% for inclusion in tp.tp_inclusion %}
+										<li>{{ inclusion.item }}</li>
+										{% endfor %}
+									</ul>
+								</div>
+								<!-- <div class="pt-3">
+									<p class="fw-bold">Exclude</p>
+									<ul>
+										<li>Personal expenses.</li>
+										<li>Tipping Guide/Driver (Not Mandatory).</li>
+									</ul>
+								</div> -->
+							</div>
+
+							<div class="tab-pane fade" id="itenary-tab-pane" role="tabpanel" aria-labelledby="itenary-tab" tabindex="0">
+								<div class="pt-3" style="text-align: justify;">
+									{{ tp.tp_itenary|raw }}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+	</section>
+	<!-- End Portfolio Details Section -->
+
+  </main>
+  <!-- End #main -->

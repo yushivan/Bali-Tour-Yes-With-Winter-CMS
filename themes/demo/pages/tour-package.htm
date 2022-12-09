@@ -1,0 +1,88 @@
+title = "Tour Package"
+url = "/tour-package"
+layout = "default"
+is_hidden = 0
+==
+<?php
+	use Winter\Blog\Models\Post;
+	use Winter\Blog\Models\Category;
+
+	function onStart()
+	{
+		$this['posts'] = Post::where('published', 1)->get();		
+		$this['tp'] = Category::where('slug', 'tour-package')->first();	
+	}
+?>
+==
+
+<!-- ======= Hero Section ======= -->
+<section id="hero-tour" class="d-flex flex-column justify-content-end align-items-center">
+	<div id="heroCarousel" data-bs-interval="5000" class="container-fluid carousel carousel-fade" data-bs-ride="carousel">
+
+		<!-- Slide 1 -->
+		<div class="carousel-item active" data-bs-interval="10000" style="background-image: url('https://images.unsplash.com/photo-1574079899277-78c0454deba7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80');">
+			<div class="carousel-container">
+				<h2 class="animate__animated animate__fadeInDown">Tour Packages</h2>
+				<!-- <p class="animate__animated fanimate__adeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p> -->
+			</div>
+		</div>
+
+	</div>
+
+	<svg class="hero-waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28 " preserveAspectRatio="none">
+		<defs>
+			<path id="wave-path" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"></path>
+		</defs>
+		<g class="wave1">
+			<use xlink:href="#wave-path" x="50" y="3" fill="rgba(255,255,255, .1)"></use>
+		</g>
+		<g class="wave2">
+			<use xlink:href="#wave-path" x="50" y="0" fill="rgba(255,255,255, .2)"></use>
+		</g>
+		<g class="wave3">
+			<use xlink:href="#wave-path" x="50" y="9" fill="#fff"></use>
+		</g>
+	</svg>
+
+</section><!-- End Hero -->
+
+<main id="main">
+
+	<!-- ======= Tour Section ======= -->
+	<section id="services" class="services">
+		<div class="container">
+
+			<div class="section-title" data-aos="zoom-out">
+				<h2>TOUR PACKAGE</h2>
+				<p>Find Exclusive Tour Package</p>
+			</div>
+
+			<div class="row">
+
+				{% for tp in tp.posts %}
+				<div class="col-lg-4 col-md-6 my-4">
+					<div class="icon-box" data-aos="zoom-in-left">
+						<h1 class="text-center price">{{ tp.tp_price }} <span>pax</span></h1>
+						<div class="ratio ratio-1x1">
+							<img src="{{ tp.tp_images[0].path }}" alt="" class="image-fluid">
+						</div>
+						<h4 class="title text-uppercase">{{ tp.title }}</h4>
+						<ul class="description">
+							{% for destination in tp.tp_destination %}
+							<li>{{ destination.destination_name }}</li>
+							{% endfor %}
+						</ul>
+						<a href="{{ url('/detail-tour-package') }}/{{tp.slug}}#main" class="cta-btn2 d-flex justify-content-center">View More</a>
+					</div>
+				</div>
+				{% endfor %}
+				
+			</div>
+
+		</div>
+	</section>
+	<!-- End Tour Section -->
+
+	{% partial 'facilities-section' %}
+
+</main>
